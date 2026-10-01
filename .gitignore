@@ -1,0 +1,4 @@
+.DS_Store
+node_modules/
+# Nova's per-project settings
+.nova/

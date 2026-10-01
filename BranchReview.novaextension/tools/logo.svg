@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a90ff"/><stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>
+  </defs>
+
+
+  <!-- base page: inactive, muted outline -->
+  <g transform="rotate(-9 203.0 251.0)">
+    <path d="M104 92H256L328 164V384a26 26 0 0 1 -26 26H104a26 26 0 0 1 -26 -26V118a26 26 0 0 1 26 -26z" fill="#111a33" stroke="#8da0c4" stroke-width="10" stroke-linejoin="round"/>
+    <rect x="114" y="212" width="120" height="22" rx="11" fill="#8da0c4"/>
+    <rect x="114" y="260" width="84" height="22" rx="11" fill="#8da0c4" opacity=".6"/>
+  </g>
+
+  <!-- target page: active, blue fill with bright outline and glow -->
+  <g transform="rotate(6 313.0 232.0)">
+    <path d="M208 62H372L444 134V376a26 26 0 0 1 -26 26H208a26 26 0 0 1 -26 -26V88a26 26 0 0 1 26 -26z" fill="#3b82f6" opacity=".55" filter="url(#glow)"/>
+    <path d="M208 62H372L444 134V376a26 26 0 0 1 -26 26H208a26 26 0 0 1 -26 -26V88a26 26 0 0 1 26 -26z" fill="url(#blue)" stroke="#7db0ff" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M372 62L444 134H372V62z" fill="#0b1633" opacity=".45"/>
+    <rect x="216" y="174" width="32" height="22" rx="11" fill="#fff"/>
+    <rect x="260" y="174" width="132" height="22" rx="11" fill="#fff"/>
+    <rect x="216" y="222" width="32" height="22" rx="11" fill="#fff"/>
+    <rect x="260" y="222" width="96" height="22" rx="11" fill="#fff" opacity=".75"/>
+    <rect x="216" y="270" width="32" height="22" rx="11" fill="#fff" opacity=".45"/>
+    <rect x="260" y="270" width="116" height="22" rx="11" fill="#fff" opacity=".45"/>
+  </g>
+
+  <!-- reviewed badge -->
+  <circle cx="386" cy="390" r="62" fill="#3b82f6" opacity=".6" filter="url(#glow)"/>
+  <circle cx="386" cy="390" r="60" fill="#0b1633" stroke="#7db0ff" stroke-width="10"/>
+  <path d="M358 391l21 21 40-46" fill="none" stroke="#7db0ff" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

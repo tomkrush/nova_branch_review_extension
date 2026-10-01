@@ -1,0 +1,207 @@
+{
+    "identifier": "com.tomkrush.branch-review",
+    "name": "Branch Review",
+    "organization": "Tom Krush",
+    "description": "Review a branch in a sidebar: every changed file against its base, with diffs, commit filtering and reviewed marks.",
+    "version": "0.1.0",
+    "categories": [
+        "sidebars",
+        "commands"
+    ],
+    "license": "MIT",
+    "repository": "https://github.com/tomkrush/nova_branch_review_extension",
+    "bugs": "https://github.com/tomkrush/nova_branch_review_extension/issues",
+    "homepage": "https://github.com/tomkrush/nova_branch_review_extension",
+    "main": "main.js",
+    "activationEvents": [
+        "onWorkspaceContains:.git"
+    ],
+    "entitlements": {
+        "process": true,
+        "filesystem": "readwrite"
+    },
+    "commands": {
+        "extensions": [
+            {
+                "title": "Refresh",
+                "command": "branchreview.refresh"
+            },
+            {
+                "title": "Choose Base Branch…",
+                "command": "branchreview.chooseBase"
+            },
+            {
+                "title": "Choose Target Branch…",
+                "command": "branchreview.chooseTarget"
+            },
+            {
+                "separator": true
+            },
+            {
+                "title": "Mark Selection Reviewed",
+                "command": "branchreview.toggleReviewed"
+            },
+            {
+                "title": "Open Next Unreviewed File",
+                "command": "branchreview.nextUnreviewed"
+            },
+            {
+                "title": "Filter by Change Type…",
+                "command": "branchreview.chooseFilter"
+            },
+            {
+                "title": "Toggle Folder Grouping",
+                "command": "branchreview.toggleView"
+            },
+            {
+                "title": "Toggle Hide Reviewed",
+                "command": "branchreview.toggleHideReviewed"
+            },
+            {
+                "separator": true
+            },
+            {
+                "title": "Clear Cache",
+                "command": "branchreview.clearCache"
+            }
+        ],
+        "command-palette": [
+            {
+                "title": "Open Changed File",
+                "command": "branchreview.openDefault"
+            }
+        ]
+    },
+    "config": [
+        {
+            "title": "Branch Review",
+            "type": "section",
+            "children": [
+                {
+                    "key": "branchreview.view",
+                    "title": "Show files as",
+                    "type": "enum",
+                    "values": [
+                        [
+                            "tree",
+                            "Folder tree"
+                        ],
+                        [
+                            "list",
+                            "Flat list"
+                        ]
+                    ],
+                    "default": "tree"
+                },
+                {
+                    "key": "branchreview.openMode",
+                    "title": "Double-click opens",
+                    "type": "enum",
+                    "values": [
+                        [
+                            "diff",
+                            "The diff"
+                        ],
+                        [
+                            "file",
+                            "The full file"
+                        ]
+                    ],
+                    "default": "diff"
+                },
+                {
+                    "key": "branchreview.hideReviewed",
+                    "title": "Hide reviewed files",
+                    "type": "boolean",
+                    "default": false
+                }
+            ]
+        }
+    ],
+    "sidebars": [
+        {
+            "id": "branchreview.sidebar",
+            "name": "Branch Review",
+            "smallImage": "sidebar-small",
+            "largeImage": "sidebar-large",
+            "sections": [
+                {
+                    "id": "branchreview.files",
+                    "name": "Changed Files",
+                    "allowMultiple": true,
+                    "placeholderText": "Loading…",
+                    "headerCommands": [
+                        {
+                            "title": "Refresh",
+                            "command": "branchreview.refresh",
+                            "image": "hdr-refresh",
+                            "tooltip": "Refresh"
+                        },
+                        {
+                            "title": "Next Unreviewed",
+                            "command": "branchreview.nextUnreviewed",
+                            "image": "hdr-next",
+                            "tooltip": "Open the next unreviewed file"
+                        },
+                        {
+                            "title": "Filter",
+                            "command": "branchreview.chooseFilter",
+                            "image": "hdr-filter",
+                            "tooltip": "Filter by change type"
+                        },
+                        {
+                            "title": "Hide Reviewed",
+                            "command": "branchreview.toggleHideReviewed",
+                            "image": "hdr-eye",
+                            "tooltip": "Hide or show reviewed files"
+                        },
+                        {
+                            "title": "Group by Folder",
+                            "command": "branchreview.toggleView",
+                            "image": "hdr-tree",
+                            "tooltip": "Switch between a folder tree and a flat list"
+                        }
+                    ],
+                    "contextCommands": [
+                        {
+                            "title": "Mark Reviewed / Unreviewed",
+                            "command": "branchreview.toggleReviewed"
+                        },
+                        {
+                            "separator": true
+                        },
+                        {
+                            "title": "Open Diff",
+                            "command": "branchreview.openDiff",
+                            "when": "viewItem == 'file'"
+                        },
+                        {
+                            "title": "Open Full File",
+                            "command": "branchreview.openFile",
+                            "when": "viewItem == 'file'"
+                        }
+                    ]
+                },
+                {
+                    "id": "branchreview.commits",
+                    "name": "Commits",
+                    "placeholderText": "No commits",
+                    "headerCommands": [
+                        {
+                            "title": "Choose Base",
+                            "command": "branchreview.chooseBase",
+                            "image": "hdr-base",
+                            "tooltip": "Choose the base branch"
+                        },
+                        {
+                            "title": "Choose Target",
+                            "command": "branchreview.chooseTarget",
+                            "image": "hdr-branch",
+                            "tooltip": "Choose the branch to review"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
