@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: BranchReview.novaextension
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+
+      - name: Check extension.json
+        run: |
+          node -e '
+            const fs = require("fs");
+            const m = JSON.parse(fs.readFileSync("extension.json", "utf8"));
+            const images = [];
+            for (const s of m.sidebars || []) {
+              images.push(s.smallImage, s.largeImage);
+              for (const sec of s.sections || []) for (const c of sec.headerCommands || []) images.push(c.image);
+            }
+            const missing = images.filter(Boolean).filter((i) => !fs.existsSync(`Images/${i}`));
+            if (missing.length) {
+              console.error("Missing images:", missing.join(", "));
+              process.exit(1);
+            }
+            console.log(`extension.json OK (${images.length} images)`);
+          '
+
+      - name: Run tests
+        run: node tests/run.js
